@@ -1,0 +1,3 @@
+[submodule "external/web-server"]
+	path = external/web-server
+	url = git@github.com:berickson/web-server.git
