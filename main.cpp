@@ -23,6 +23,8 @@ void video_feed(const Request & request, Response & response) {
         }
         ++frame_number;
 
+        cv::flip(frame, frame, -1);
+
         // write frame number on frame
         {
             float scale=1.0;
@@ -42,13 +44,8 @@ void video_feed(const Request & request, Response & response) {
         }
 
         // flush socket
-        {
-            int bytes_pending = response.bytes_pending();
-            while(bytes_pending > 0 && ! response.is_closed()) {
-                cout << "bytes pending: " << bytes_pending << " waiting to send next video frame" << endl;
-                usleep(1000);
-                bytes_pending = response.bytes_pending();
-            }
+        while(response.bytes_pending() > 0 && ! response.is_closed()) {
+            usleep(1000);
         }
 
         response.write_content("image/jpeg", (char *)&jpeg_buff[0], jpeg_buff.size());
