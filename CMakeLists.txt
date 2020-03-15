@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.2)
 set(CMAKE_CXX_STANDARD 14)
 
-set(CPP_FILES main.cpp)
+set(CPP_FILES main.cpp work_queue.cpp frame_grabber.cpp)
 
 find_package(OpenCV REQUIRED)
 add_executable(video-server ${CPP_FILES})
